@@ -2,7 +2,8 @@
 
 In terms of a secure and efficient use of GitHub actions it will be highly recommended to follow this **best practices**
 
-1. **Repository security**
+### Repository security
+
 Access to code levels have to be restricted for only specific use to users, it can be set at
  - Repository
  - Organization
@@ -12,7 +13,7 @@ Permission levels resume
 
 ![imagen](https://user-images.githubusercontent.com/87127801/143549214-0b9cced9-8306-4474-9144-0b6d6e733d81.png)
 
-**Trace changes**
+### Trace changes
 Changes in a repo can be checked through Git commit history.
 
 Also, It is posible in a **organization** from Audit log section of Settings to have a living report of all changes happening with
@@ -26,7 +27,7 @@ Also, It is posible in a **organization** from Audit log section of Settings to 
 
 ![imagen](https://user-images.githubusercontent.com/87127801/143549946-bd12c590-b865-4738-b020-5bfe80693dc7.png)
 
-**Workflows secrets**
+### Workflows secrets
 Notice that secrets are **not** shared to forked repositories.
 
 Access and manage of secrets works this way:
@@ -43,11 +44,11 @@ Don't use structured data (like json): hard to redact
  - Actions can do anything with secrets
  - **Anyone with access to the Action Logs** should be considered to have access to your secrets
 
-**Static code analysis**
+### Static code analysis
 All code has to be checked through scans for know their possible vulnerabilities.
 Always keep dependencies up to date
 
-2. **Workflows Runners**
+### Workflows Runners
 
  A best practice is to run the action inside of a container
 
@@ -55,9 +56,9 @@ Always keep dependencies up to date
 
 ![imagen](https://user-images.githubusercontent.com/87127801/143555728-3cdf17f1-1a3c-490a-b1ea-040df17e5a8b.png)
 
-As well as ** don't use self hosted runners for public repositories**
+As well as **don't use self hosted runners for public repositories**
 
-**Persisting data between runs**
+### Persisting data between runs
 Don't share runners (and machines!) between repositories:
 
 Risks:
@@ -68,7 +69,7 @@ Risks:
  - Persisting unwanted or dangerous data
 
 
-3. **Runners and security**
+### Runners and security
 
 Use actions in workflows from marketplace or by direct url
 
@@ -78,31 +79,18 @@ Use actions in workflows from marketplace or by direct url
 
 ![imagen](https://user-images.githubusercontent.com/87127801/143569670-88531087-f74c-434d-bc09-794e4e82638a.png)
 
-## Actions and security
-![imagen](https://user-images.githubusercontent.com/87127801/143569929-5d85e953-18c8-4c80-bb1d-1deab364feab.png)
-
-
-**Protective measures**
+### Protective measures
 Manually:
 - Check the action repo code before use
- -Check its container images and dependencies before use
+- Check its container images and dependencies before use
+- Preferently use actions from verified creators
 
-**Verified Creator**
-Verification process:
-
- - GitHub Profile information is presente and accurate
- - Two factor authentication is on for the organization
- - Domain verification through a txt record
-
-**Limiting actions altogether**
+### Limiting actions altogether
+Using a whitelist to manage actions use is highly recommended
 
 ![imagen](https://user-images.githubusercontent.com/87127801/143572278-03e13c7e-fee7-41eb-9fc3-d92b6b6d078e.png)
 
-![imagen](https://user-images.githubusercontent.com/87127801/143573867-91e24108-205f-4012-83b5-010478398f7d.png)
-
-Pin the action version:
-uses:gaurav-nelson/github-action-markdown-link-check@v1
-uses:gaurav-nelson/github-action-markdown-link-check@v1.0.1
-
-**Best practice**: Pin the Action's commit SHA:
+**Best practice** for using an action is to pin the action's commit SHA:
+``` yaml
 uses:gaurav-nelson/github-action-markdown-link-check@44a942b...
+```
