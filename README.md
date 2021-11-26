@@ -1,47 +1,21 @@
-# GitHub Best Practices
+## Working with actions
 
-## Words matter
+In terms of a secure and efficient use of GitHub actions it will be highly recommended to follow this **best practices**
 
-*Workflows*
-Execute one or more **Actions**
-Worflows triggered by events:
- - Push
- - Creating an issue
- - Release
- 
-Exectute on a runner
-
-*Actions*
-Steps in the **workflows**
-Basis: Run a shell script
-
-Create your own
-Use an existing one from the marketplace
-
-# Repository security
-
-## Access to code
-
-
- **Who has access?**
-Access levels can be set at:
-
+1. **Repository security**
+Access to code levels have to be restricted for only specific use to users, it can be set at
  - Repository
  - Organization
  - Enterprise
 
-Permission levels
+Permission levels resume
 
 ![imagen](https://user-images.githubusercontent.com/87127801/143549214-0b9cced9-8306-4474-9144-0b6d6e733d81.png)
 
-**Your code/repo - trace changes**
-Who made changes:
+**Trace changes**
+Changes in a repo can be checked through Git commit history.
 
- - Code: Git commit history
- - Everything **around** your code is in the **audit log**
-
-**Your code/repo - trace changes (org level)**
-Audit log:
+Also, It is posible in a **organization** from Audit log section of Settings to have a living report of all changes happening with
 
  - Access
  - Secrets
@@ -52,122 +26,39 @@ Audit log:
 
 ![imagen](https://user-images.githubusercontent.com/87127801/143549946-bd12c590-b865-4738-b020-5bfe80693dc7.png)
 
-## Workflows secrets
+**Workflows secrets**
+Notice that secrets are **not** shared to forked repositories.
 
-![imagen](https://user-images.githubusercontent.com/87127801/143551236-683bccc8-3216-49c2-9bf8-dd29c85adf07.png)
+Access and manage of secrets works this way:
+- For creating at **repo** level: Repository Owner access
+- For creating at **org** level: Admin access to the org
 
-Encrypted client side before reaching GitHub:
-
- - Encrypted with the public key for your org or repo (created and stored by GitHub)
- - Used when using the UI
- - Encrypt yourself before posting to the REST API
-
-Secrets are **not** shared to forked repositories
-
-**Who has access to your secrets?**
-For creating at **repo** level: Repository Owner access
-For creating at **org** level: Admin access to the org
-
- - Set an access policy for the secrets
-	 - All repositories
-	 - Private repositories
-	 - Only selected repositories
-
-Encrypted until used, then injected as:
-
- - An environment variable
- - Direct input
-
-Wil be redacted in logs
+Access policy for the secrets
+ - All repositories
+ - Private repositories
+ - Only selected repositories
 
 Don't use structured data (like json): hard to redact
 
- - Actions can do anything with secrets!
+ - Actions can do anything with secrets
  - **Anyone with access to the Action Logs** should be considered to have access to your secrets
 
-## Your code/repo
+**Static code analysis**
+All code has to be checked through scans for know their possible vulnerabilities.
+Always keep dependencies up to date
 
-Anything in your repository:
+2. **Workflows Runners**
 
- - Workflows files
- - Shell scripts
- - Your own code
- - Dependencies
-	 - Packages
-	 - Containers
-
-**Best practices**:
-
- - Static code analysis
-	 - Check your own code!
-
- - Third party dependency scanning
-	 - 99% of your code, is not yours:
-		 - Scan for known vulnerabilities
-
-	- Keep your dependencies up to date!
-
-# Runners and security
-## Workflows Runners
-
-Action execute on runners
-
-![imagen](https://user-images.githubusercontent.com/87127801/143554650-5aeaeb1b-8fb8-4b8a-91e1-fccc444feb05.png)
-
- - Self hosted
-	 - Cloud / On premises hosted by yourself
-	 - OS + Tools update = YOUR responsibility
-	 - Enables specific environment setup
-	 - No usage limits
-
-![imagen](https://user-images.githubusercontent.com/87127801/143554716-ba09bb25-8d01-435e-9a7f-4ee95013a171.png)
-
- - GitHub hosted
-	 - OS + Tools update = GitHub's responsibility
-	 - Per minute rating applies after free minutes
-	 - Clean execution environment with every run
-
-**Security**	 
-
- - Environment scope
-	 - Network
-	 - Shared state between runs
-- User: limits its access!
-
-**Best practice: Run the action inside of a container**
+ A best practice is to run the action inside of a container
 
 ![imagen](https://user-images.githubusercontent.com/87127801/143555445-7e3ab99b-0878-43f2-a812-00bf0317e6c5.png)
 
 ![imagen](https://user-images.githubusercontent.com/87127801/143555728-3cdf17f1-1a3c-490a-b1ea-040df17e5a8b.png)
 
-**Best practice: Don't use self hosted runners for public repositories**
+As well as ** don't use self hosted runners for public repositories**
 
-Example:
-
- - Your repo
- - New fork
- - Adds malicious code
- - Create pull request to your repo
- - Workflow is executed on your self hosted runner?
-
-## Persisting data between runs
-Run1:
-
- - Download dependencies
- - Build the code
- - Somehow overwrite the dependency cache
-
-Run2:
-
- - Use cached dependencies
- - Build the code
- - Malicious dependency in build artefact
-
-## Workflow runners - Best practice
-
+**Persisting data between runs**
 Don't share runners (and machines!) between repositories:
-
- - Run1 can influence Run2
 
 Risks:
 
@@ -176,11 +67,10 @@ Risks:
  - Exposing access to the (network) environment
  - Persisting unwanted or dangerous data
 
-# Runners and security
 
-## Actions
+3. **Runners and security**
 
-Marketplace or by direct url
+Use actions in workflows from marketplace or by direct url
 
 ![imagen](https://user-images.githubusercontent.com/87127801/143569500-14a0fbce-7795-4a64-bea3-384fc3916e2a.png)
 
@@ -191,18 +81,11 @@ Marketplace or by direct url
 ## Actions and security
 ![imagen](https://user-images.githubusercontent.com/87127801/143569929-5d85e953-18c8-4c80-bb1d-1deab364feab.png)
 
-## Protective measures
 
+**Protective measures**
 Manually:
-
- 1. Check the action repo code before use
- 2. Check its container images and dependencies before use
-
-Only use actions listed in the marketplace?
-
- - There is no real verification process for it :(
-
-![imagen](https://user-images.githubusercontent.com/87127801/143570606-448ab361-43b1-4d33-a862-b3f07d0310d6.png)
+- Check the action repo code before use
+ -Check its container images and dependencies before use
 
 **Verified Creator**
 Verification process:
