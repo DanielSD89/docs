@@ -362,7 +362,7 @@ Manually:
 
 Using a whitelist to manage actions use is highly recommended
 
-![imagen](https://user-images.githubusercontent.com/87127801/143572278-03e13c7e-fee7-41eb-9fc3-d92b6b6d078e.png)
+![imagen](https://user-images.githubusercontent.com/87127801/143894825-8a9904ce-9fa9-4d61-b696-1d32a47e5e6e.png)
 
 We can read more about security on actions runners on [this section](https://github.com/santander-group/santander-enterprise-account-public-documentation/blob/feature/security-in-action/operational-model/docs/security.md#05-actions-from-trusted-sources)
 
@@ -372,31 +372,9 @@ We can read more about security on actions runners on [this section](https://git
 uses:gaurav-nelson/github-action-markdown-link-check@44a942b...
 ```
 
-## Workflow attack vectors
-
-* Forks of public repos
-
-* Common fields
-
-### Forks of public repos
-
-![imagen](https://user-images.githubusercontent.com/87127801/143840292-5393a6ef-d531-4975-8618-e232597027e2.png)
-
-push and pull_request - Safe, runs on merge commit, read only access
-pull_request_target - High risks! Runs on the target, has read + write access and can access secrets
-
-### Pull Requests
-
-${{secrets.GITHUB_TOKEN}}
-
-![imagen](https://user-images.githubusercontent.com/87127801/143841233-74d91277-5b2f-4933-b8c8-6768651dc102.png)
-
-![imagen](https://user-images.githubusercontent.com/87127801/143841316-1aa51873-caa3-443e-86a8-c8e30dfd8841.png)
-
 ### Forking actions
 
 **Best practice**: fork the action to a local organization
-**Limit actions to only select actions from that organization**
 
 **Pros of forking**
 
