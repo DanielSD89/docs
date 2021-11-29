@@ -372,6 +372,78 @@ We can read more about security on actions runners on [this section](https://git
 uses:gaurav-nelson/github-action-markdown-link-check@44a942b...
 ```
 
+## Workflow attack vectors
+
+* Forks of public repos
+
+* Common fields
+
+### Forks of public repos
+
+![imagen](https://user-images.githubusercontent.com/87127801/143840292-5393a6ef-d531-4975-8618-e232597027e2.png)
+
+push and pull_request - Safe, runs on merge commit, read only access
+pull_request_target - High risks! Runs on the target, has read + write access and can access secrets
+
+### Pull Requests
+
+${{secrets.GITHUB_TOKEN}}
+
+![imagen](https://user-images.githubusercontent.com/87127801/143841233-74d91277-5b2f-4933-b8c8-6768651dc102.png)
+
+![imagen](https://user-images.githubusercontent.com/87127801/143841316-1aa51873-caa3-443e-86a8-c8e30dfd8841.png)
+
+### Forking actions
+
+**Best practice**: fork the action to a local organization
+**Limit actions to only select actions from that organization**
+
+**Pros of forking**
+
+* Backup of the action
+
+* Full control over updates
+
+* Pull in updates with validation centrally
+
+* Only allow actions from your actions organization
+
+* Skip commit SHA lookup and updating in every workflow
+
+**Cons of forking**
+
+* More maintenance work (fork needs to be created and kept up to date)
+
+* Limits the usage of new actions in your org
+
+### Keeping up to date
+
+I't's mandatory to keep your forked action up to date
+We must follow this steps in order to update a forked repo
+
+* Create an issue
+
+* Review before merging
+
+* Add a label, then fork gets updated and issue is closed
+
+### Best practices summarized
+
+* **Treat workflow secrets very carefully: best to think of them as public**
+
+* **Review actions' source code**
+
+* **Pin actions to commit SHA**
+
+* **Don't trust incoming Pull Requests on public repos**
+
+* **Fork the action repo and limit actions to local actions only**
+
+* **Have an organization setup to test with**
+
+* **Keep your forked actions up to date**
+
+
 ## Teams
 
 Ensure role-based access controls are available and in use.
