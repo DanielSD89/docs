@@ -291,26 +291,34 @@ features are found for a particular image
 
 ## Working with actions
 
-In terms of a secure and efficient use of GitHub actions it will be highly recommended to follow this **best practices**
+In terms of a secure and efficient use of GitHub actions
+it will be highly recommended to follow this **best practices**
 
 ### Workflows secrets
+
 Notice that secrets are **not** shared to forked repositories and they can be **public**.
 
 Access and manage of secrets works this way:
-- For creating at **repo** level: Repository Admin access
-- For creating at **org** level: Organization Owner to the org
+
+* For creating at **repo** level: Repository Admin access
+
+* For creating at **org** level: Organization Owner to the org
 
 Access policy for the secrets
- - All repositories
- - Private repositories
- - Only selected repositories
+
+* All repositories
+
+* Private repositories
+
+* Only selected repositories
 
 Don't use structured data (like json): hard to redact
 
- - Actions can do anything with secrets
- - **Anyone with access to the Action Logs** should be considered to have access to your secrets
- - Secrets are **public**
+* Actions can do anything with secrets
 
+* **Anyone with access to the Action Logs** have access to your secrets
+
+* Secrets are **public**
 
 ### Workflows Runners
 
@@ -323,32 +331,43 @@ Don't use structured data (like json): hard to redact
 As well as **don't use self hosted runners for public repositories**
 
 ### Persisting data between runs
+
 Don't share runners (and machines!) between repositories:
 
 Risks:
 
- - Malicious programs
- - Escaping the runner sandbox
- - Exposing access to the (network) environment
- - Persisting unwanted or dangerous data
+* Malicious programs
 
+* Escaping the runner sandbox
+
+* Exposing access to the (network) environment
+
+* Persisting unwanted or dangerous data
 
 ### Runners and security
 
 We can found detailed information about this matter on this [security section](https://github.com/santander-group/santander-enterprise-account-public-documentation/blob/main/operational-model/docs/security.md#05-actions-from-trusted-sources)
 
 ### Protective measures
+
 Manually:
-- Check the action repo code before use
-- Check its container images and dependencies before use
-- Preferently use actions from verified creators
+
+* Check the action repo code before use
+
+* Check its container images and dependencies before use
+
+* Preferently use actions from verified creators
 
 ### Limiting actions altogether
+
 Using a whitelist to manage actions use is highly recommended
 
 ![imagen](https://user-images.githubusercontent.com/87127801/143572278-03e13c7e-fee7-41eb-9fc3-d92b6b6d078e.png)
 
+We can read more about security on actions runners on [this section](https://github.com/santander-group/santander-enterprise-account-public-documentation/blob/feature/security-in-action/operational-model/docs/security.md#05-actions-from-trusted-sources)
+
 **Best practice** for using an action is to pin the action's commit SHA:
+
 ``` yaml
 uses:gaurav-nelson/github-action-markdown-link-check@44a942b...
 ```
