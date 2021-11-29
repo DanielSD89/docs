@@ -179,6 +179,17 @@ __Note__: The OO needs to grant GraphQL Explorer access to organization in the
 
 ![security grant access](../resources/security-grantaccesstographql.png)
 
+### Trace changes
+Changes in a repo can be checked through Git commit history.
+
+Also, It is posible in a **organization** from Audit log section of Settings to have a living report of all changes happening with
+
+ - Access
+ - Secrets
+ - Access Tokens
+ - OAuth grants
+ - Enabling features
+
 ### 04 Do not allow External Collaborators accounts on your organization
 
 We all love extra help and external collaborator accounts can often help us when
