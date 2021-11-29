@@ -2,31 +2,6 @@
 
 In terms of a secure and efficient use of GitHub actions it will be highly recommended to follow this **best practices**
 
-### Repository security
-
-Access to code levels have to be restricted for only specific use to users, it can be set at
- - Repository
- - Organization
- - Enterprise
-
-Permission levels resume
-
-![imagen](https://user-images.githubusercontent.com/87127801/143549214-0b9cced9-8306-4474-9144-0b6d6e733d81.png)
-
-### Trace changes
-Changes in a repo can be checked through Git commit history.
-
-Also, It is posible in a **organization** from Audit log section of Settings to have a living report of all changes happening with
-
- - Access
- - Secrets
- - Access Tokens
- - OAuth grants
- - Enabling features
- - Etc.
-
-![imagen](https://user-images.githubusercontent.com/87127801/143549946-bd12c590-b865-4738-b020-5bfe80693dc7.png)
-
 ### Workflows secrets
 Notice that secrets are **not** shared to forked repositories.
 
@@ -94,3 +69,50 @@ Using a whitelist to manage actions use is highly recommended
 ``` yaml
 uses:gaurav-nelson/github-action-markdown-link-check@44a942b...
 ```
+
+-------
+
+
+
+## Workflow attack vectors
+
+- Forks of public repos
+- Common fields
+
+### Forks of public repos
+![imagen](https://user-images.githubusercontent.com/87127801/143840292-5393a6ef-d531-4975-8618-e232597027e2.png)
+
+push and pull_request - Safe, runs on merge commit, read only access
+pull_request_target - High risks! Runs on the target, has read + write access and can access secrets
+
+### Pull Requests
+
+${{secrets.GITHUB_TOKEN}}
+
+![imagen](https://user-images.githubusercontent.com/87127801/143841233-74d91277-5b2f-4933-b8c8-6768651dc102.png)
+
+![imagen](https://user-images.githubusercontent.com/87127801/143841316-1aa51873-caa3-443e-86a8-c8e30dfd8841.png)
+
+### Common fields
+
+![imagen](https://user-images.githubusercontent.com/87127801/143841426-13ef155b-9647-4898-92c3-f89f11d3f746.png)
+
+```yaml
+- name: Check title
+  run: |
+    title="${{ github.event.issue.title }}"
+    if [[ ! $title =~ ^.*:\ .*$ ]]; then
+      echo "Bad issue title"
+      exit 1
+    fi
+```
+### Remdiation
+
+```yaml
+- name: print title
+  env:
+    TITLE: ${{ github.event.issue.title }}
+  run: echo `$TITLE´
+
+
+
