@@ -335,13 +335,7 @@ Risks:
 
 ### Runners and security
 
-Use actions in workflows from marketplace or by direct url
-
-![imagen](https://user-images.githubusercontent.com/87127801/143569500-14a0fbce-7795-4a64-bea3-384fc3916e2a.png)
-
-![imagen](https://user-images.githubusercontent.com/87127801/143569592-ede99095-4ae9-4bf8-b8ee-6ae631a1c269.png)
-
-![imagen](https://user-images.githubusercontent.com/87127801/143569670-88531087-f74c-434d-bc09-794e4e82638a.png)
+We can found detailed information about this matter on this [security section](https://github.com/santander-group/santander-enterprise-account-public-documentation/blob/main/operational-model/docs/security.md#05-actions-from-trusted-sources)
 
 ### Protective measures
 Manually:
